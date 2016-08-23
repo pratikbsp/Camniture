@@ -1,4 +1,39 @@
+#application files
+*.apk
+*.ap_
+
+# Files for the Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+#Log Files
+*.log
+
+*.classpath
+*.properties
+*.DS_Store
+*.settings
+lint.xml
+
+
+*.project
+
+*.idea
 *.iml
+
 .gradle
 /local.properties
 /.idea/workspace.xml
