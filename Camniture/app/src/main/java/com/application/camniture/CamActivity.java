@@ -57,6 +57,7 @@ public class CamActivity extends Activity implements OnAzimuthChangedListener,On
     GLSurfaceView view;
 
     ObjectFeatures object;
+    OpenGLRenderer ogl;
 
     private int width;
     @Override
@@ -121,6 +122,7 @@ public class CamActivity extends Activity implements OnAzimuthChangedListener,On
         capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ogl.rotate();
                 setObjectPosition();
             }
         });
@@ -131,15 +133,15 @@ public class CamActivity extends Activity implements OnAzimuthChangedListener,On
         view = (GLSurfaceView)findViewById(R.id.gls);
         //view = new GLSurfaceView(this);
         view.setEGLConfigChooser(8,8,8,8,16,0);
-
-        view.setRenderer(new OpenGLRenderer());
+        ogl = new OpenGLRenderer();
+        view.setRenderer(ogl);
         view.getHolder().setFormat(PixelFormat.TRANSLUCENT);
         view.setZOrderOnTop(true);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(800, 800);
 
         view.setLayoutParams(layoutParams);
         view.setOnTouchListener(new ChoiceTouchListener());
-        view.setVisibility(View.INVISIBLE);
+        //view.setVisibility(View.INVISIBLE);
        //setupListenerOnObject();
     }
 
@@ -214,17 +216,17 @@ public class CamActivity extends Activity implements OnAzimuthChangedListener,On
       //  Toast.makeText(CamActivity.this,"Azimuth changed",Toast.LENGTH_LONG).show();
         if (isBetween(minAngle-20, maxAngle+20, mAzimuthReal)) {
             //Toast.makeText(CamActivity.this,"Visible",Toast.LENGTH_LONG).show();
-            view.setVisibility(View.VISIBLE);
+            //view.setVisibility(View.VISIBLE);
             if(!hasEntered){
                 hasEntered = true;
                 savedAzimuthal = mAzimuthReal;
             }
-            layoutParams.leftMargin = (int)moveInX;
-            Log.d("x_cord",""+moveInX);
-            view.setLayoutParams(layoutParams);
-            rootLayout.invalidate();
+            //layoutParams.leftMargin = (int)moveInX;
+            //Log.d("x_cord",""+moveInX);
+            //view.setLayoutParams(layoutParams);
+           // rootLayout.invalidate();
         } else {
-           view.setVisibility(View.INVISIBLE);
+           //view.setVisibility(View.INVISIBLE);
             hasEntered = false;
 
         }

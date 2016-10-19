@@ -13,6 +13,10 @@ class OpenGLRenderer implements GLSurfaceView.Renderer {
 
     private Cube mCube = new Cube();
     private float mCubeRotation;
+    boolean shouldRotate = false;
+    GL10 glObject ;
+    float abs = 90;
+    float pRotate = 0;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -41,12 +45,17 @@ class OpenGLRenderer implements GLSurfaceView.Renderer {
 
         gl.glTranslatef(0.0f, 0.0f, -10.0f);
         gl.glRotatef(mCubeRotation, 1.0f, 1.0f, 1.0f);
-
         mCube.draw(gl);
 
         gl.glLoadIdentity();
-
-        mCubeRotation -= 0.15f;
+        glObject = gl;
+        if(shouldRotate && Math.abs(mCubeRotation-pRotate)<= 10) {
+            mCubeRotation -= 0.15f;
+            if(Math.abs(mCubeRotation-pRotate) >= 10){
+                shouldRotate = false;
+                pRotate = mCubeRotation;
+            }
+        }
     }
 
     @Override
@@ -59,5 +68,9 @@ class OpenGLRenderer implements GLSurfaceView.Renderer {
 
         gl.glMatrixMode(GL10.GL_MODELVIEW);
         gl.glLoadIdentity();
+    }
+
+    public void rotate(){
+        shouldRotate = true;
     }
 }
